@@ -1,0 +1,52 @@
+############################################################
+#  Configurazione Quarkus App                              #
+############################################################
+quarkus:
+  application:
+    name: app-ms
+    version: 1.0.0
+  http:
+    port: 9091
+    auth:
+      basic: false
+    cors: true
+    root-path: /api/v1/app
+  log:
+    level: INFO
+    #category:
+    #  "io.quarkus":
+    #    level: DEBUG
+    file:
+      enable: false
+      path: "/tmp/application.log"
+      level: TRACE
+      format: "%d ${LOG_LEVEL_PATTERN:-%5p} [%c{2.}] | %m%n"
+    console:
+      enable: true
+      format: "%d ${LOG_LEVEL_PATTERN:-%5p} [%c{2.}] | %m%n"
+      level: DEBUG
+      color: false
+  mongodb:
+    connection-string: mongodb://127.0.0.1:27017/app
+    database: app
+
+  package:
+    type: fast-jar
+  profile: svil
+  resteasy:
+    path: /
+  smallrye-health:
+    root-path: /api/v1/app/health
+    liveness-path: /api/v1/app/health/live
+  smallrye-openapi:
+    path: /api/v1/app/openapi
+  swagger-ui:
+    always-include: true
+    enable: true
+    path: /api/v1/app/swagger-ui
+  test:
+    # The profile to use when testing the native image
+    native-image-profile: svil
+
+    # The profile to use when testing using @QuarkusTest
+    profile: test
